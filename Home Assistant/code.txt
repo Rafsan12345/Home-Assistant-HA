@@ -1,0 +1,70 @@
+esphome:
+  name: esp32
+  friendly_name: ESP32
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "3hcjAhvKEgqtYecGPOqhtu4DueJhC094Q6Dx4L0lM/I="
+
+ota:
+  - platform: esphome
+    password: "f4f35fe72aad6d9f43396ca49ff981ac"
+
+wifi:
+  ssid: "Rafsan"
+  password: "rafsan1234"
+
+  manual_ip:
+    static_ip: 192.168.0.104
+    gateway: 192.168.0.1
+    subnet: 255.255.255.0
+    dns1: 8.8.8.8
+    dns2: 8.8.4.4
+
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Esp32 Fallback Hotspot"
+    password: "vmP4Enr4CAUY"
+
+captive_portal:
+
+# ... (আপনার অন্যান্য কনফিগারেশন, যেমন esphome:, esp32:, wifi: ঠিক থাকবে)
+
+# output অংশটি অপরিবর্তিত থাকবে
+output:
+- id: lightoutput_id
+  platform: gpio 
+  pin: GPIO18
+
+- id: lightoutput2_id
+  platform: gpio 
+  pin: GPIO19
+
+- id: lightoutput3_id
+  platform: gpio 
+  pin: GPIO21
+
+# light অংশটিকে output ID-এর সাথে সংযুক্ত করতে হবে।
+# Binary light platform ব্যবহার করা হয়েছে, যা আপনার GPIO আউটপুটের সাথে কাজ করে।
+light:
+- platform: binary
+  name: "Desk Lamp"
+  output: lightoutput_id # এখানে output-এর ID ব্যবহার করুন
+
+- platform: binary
+  name: "Desk Lamp 2"
+  output: lightoutput2_id # এখানে output-এর ID ব্যবহার করুন
+
+- platform: binary
+  name: "Desk Lamp 3"
+  output: lightoutput3_id # এখানে output-এর ID ব্যবহার করুন
